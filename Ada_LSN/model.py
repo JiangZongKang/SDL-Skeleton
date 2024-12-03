@@ -1,7 +1,11 @@
-from Ada_LSN.operations import *
+from operations import *
 import torch.nn.functional as F
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from modules.binary_cross_entropy import bce2d as b1
-from Ada_LSN.create_inception import Inception3 as network
+from create_inception import Inception3 as network
 # from Ada_LSN.create_mobilenet import mobilenetv3_large as network
 # from Ada_LSN.create_res2net import res2net50_v1b as network
 # from Ada_LSN.create_resnest import resnest50 as network
@@ -236,7 +240,7 @@ class Network(nn.Module):
             else:
                 loss_fuse = None
             out = torch.sigmoid(out_fuse)
-            return out, loss_fuse   # for test
+            return out  # for test
 
     def crop(self, d, region):  # use for crop the keep to input data
         x, y, h, w = region
